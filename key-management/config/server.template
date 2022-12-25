@@ -1,0 +1,23 @@
+proto udp
+dev tun
+server 10.2.0.0 255.255.255.0
+ifconfig-pool-persist ipp.txt
+tls-server
+tls-timeout 60
+auth    SHA256
+cipher  AES-256-CBC
+client-to-client
+
+ping 10
+ping-restart 60
+push "ping 10"
+push "ping-exit 30"
+
+comp-lzo
+max-clients 10
+user nobody
+group nogroup
+persist-key
+persist-tun
+verb 3
+mute 20

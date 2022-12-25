@@ -1,0 +1,44 @@
+{
+  "isServerMode": true,
+  "openVpnRunner": {
+    "linuxPath": "openvpn",
+    "windowsPath": "\"C:\\Program Files\\OpenVPN\\bin\\openvpn.exe\""
+  },
+  "s3Config": {
+    "accessKey": "***",
+    "secretAccessKey": "***",
+    "endpoint": "https://s3.filebase.com",
+    "region": "us-east-1",
+    "bucket": "ovpn",
+    "fileKey": "ovpn-addr.json"
+  },
+  "serverConfig": {
+    "cycledRun": true,
+    "restartTimeoutMillis": 15000,
+    "localPort": 11111,
+    "stunConfig": {
+      "stunHost": "stun.l.google.com",
+      "stunPort": 19302
+    },
+    "serverConfigPath": "dir/server.ovpn",
+    "clientConfigPath": "dir/client0.ovpn",
+    "telegramConfig": {
+      "botToken": "***:***",
+      "commonChatEnabled": true,
+      "commonChatId": "***",
+      "configsToSend": [
+        {
+          "name": "***",
+          "enabled": true,
+          "chatId": "***",
+          "ovpnClientConfigPath": "dir/client-m.ovpn"
+        }
+      ]
+    }
+  },
+  "clientConfig": {
+    "cycledRun": true,
+    "restartTimeoutMillis": 15000,
+    "clientConfigPath": "dir/vbox-client.ovpn"
+  }
+}
