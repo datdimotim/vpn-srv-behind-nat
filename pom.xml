@@ -79,7 +79,7 @@
                             <finalName>application</finalName>
                             <archive>
                                 <manifest>
-                                    <mainClass>com.dimotim.Application</mainClass>
+                                    <mainClass>com.dimotim.ovpn.Application</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>

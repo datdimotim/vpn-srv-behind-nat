@@ -1,4 +1,4 @@
-package com.dimotim;
+package com.dimotim.ovpn;
 
 import com.dimotim.ovpn.service.Looper;
 import lombok.extern.slf4j.Slf4j;
