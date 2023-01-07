@@ -5,9 +5,9 @@ import lombok.Value;
 
 @Value
 @Reflectable
-public class ClientConfig {
-    boolean cycledRun;
-    int restartTimeoutMillis;
-
-    String clientConfigPath;
+public class TelegramConfigToSend {
+    String name;
+    boolean enabled;
+    String ovpnClientConfigPath;
+    String chatId;
 }

@@ -1,6 +1,7 @@
 package com.dimotim.ovpn.service;
 
 import com.dimotim.ovpn.config.TelegramConfig;
+import com.dimotim.ovpn.config.TelegramConfigToSend;
 import com.dimotim.ovpn.model.MappedAddress;
 import com.dimotim.ovpn.util.FileUtils;
 import kong.unirest.ContentType;
@@ -26,11 +27,11 @@ public class TelegramSender {
             log.info("send to common chat skipped");
         }
 
-        List<TelegramConfig.ConfigToSend> toSend = config.getConfigsToSend().stream()
-                .filter(TelegramConfig.ConfigToSend::isEnabled)
+        List<TelegramConfigToSend> toSend = config.getConfigsToSend().stream()
+                .filter(TelegramConfigToSend::isEnabled)
                 .collect(Collectors.toList());
 
-        for(TelegramConfig.ConfigToSend conf: toSend) {
+        for(TelegramConfigToSend conf: toSend) {
             try {
                 log.info("send config file: {}", conf.getName());
                 String abs = FileUtils.resolveAbsPath(conf.getOvpnClientConfigPath());
