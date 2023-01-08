@@ -1,3 +1,13 @@
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'io.github.fvarrui:javapackager:1.6.6'
+    }
+}
+
 plugins {
     id 'java'
     id 'application'
@@ -7,6 +17,7 @@ plugins {
 }
 
 apply plugin: 'com.palantir.graal'
+apply plugin: 'io.github.fvarrui.javapackager.plugin'
 
 graal {
     graalVersion '22.3.0'
@@ -31,6 +42,34 @@ task zipExecutable(type: Zip) {
     destinationDirectory = file("$buildDir/dist")
 
     from "$buildDir/graal"
+}
+
+import io.github.fvarrui.javapackager.gradle.PackageTask;
+
+task packageLinux(type: PackageTask, dependsOn: build) {
+    javapackager{
+        mainClass = 'com.dimotim.ovpn.Application'
+        // optional
+        bundleJre = true
+        generateInstaller = false
+        createZipball = true
+        administratorRequired = false
+        platform = "linux"
+        customizedJre = false
+    }
+}
+
+task packageWindows(type: PackageTask, dependsOn: build) {
+    javapackager{
+        mainClass = 'com.dimotim.ovpn.Application'
+        // optional
+        bundleJre = true
+        generateInstaller = false
+        createZipball = true
+        administratorRequired = false
+        platform = "windows"
+        customizedJre = false
+    }
 }
 
 group 'Ovpn'
