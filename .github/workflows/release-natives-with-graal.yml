@@ -34,14 +34,14 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build native image with Gradle
-      run: ./gradlew zipExecutable
+      run: ./gradlew packageLinux
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ needs.create-release.outputs.upload_url }}  
-        asset_path: ./build/dist/Application.zip
+        asset_path: ./build/linux-image-1.0-linux.zip
         asset_name: Application_linux_amd64.zip
         asset_content_type: application/zip
   perform-release-windows:
@@ -56,13 +56,13 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build native image with Gradle
-      run: ./gradlew zipExecutable
+      run: ./gradlew packageWindows
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ needs.create-release.outputs.upload_url }}  
-        asset_path: ./build/dist/Application.zip
+        upload_url: ${{ needs.create-release.outputs.upload_url }}
+        asset_path: ./build/windows-image-1.0-windows.zip
         asset_name: Application_windows_amd64.zip
         asset_content_type: application/zip

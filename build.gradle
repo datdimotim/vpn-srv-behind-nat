@@ -1,3 +1,4 @@
+import io.github.fvarrui.javapackager.gradle.PackageTask
 
 buildscript {
     repositories {
@@ -44,34 +45,6 @@ task zipExecutable(type: Zip) {
     from "$buildDir/graal"
 }
 
-import io.github.fvarrui.javapackager.gradle.PackageTask;
-
-task packageLinux(type: PackageTask, dependsOn: build) {
-    javapackager{
-        mainClass = 'com.dimotim.ovpn.Application'
-        // optional
-        bundleJre = true
-        generateInstaller = false
-        createZipball = true
-        administratorRequired = false
-        platform = "linux"
-        customizedJre = false
-    }
-}
-
-task packageWindows(type: PackageTask, dependsOn: build) {
-    javapackager{
-        mainClass = 'com.dimotim.ovpn.Application'
-        // optional
-        bundleJre = true
-        generateInstaller = false
-        createZipball = true
-        administratorRequired = false
-        platform = "windows"
-        customizedJre = false
-    }
-}
-
 group 'Ovpn'
 version '1.0'
 sourceCompatibility = 1.11
@@ -115,3 +88,36 @@ dependencies {
     implementation group: 'com.formkiq', name: 'graalvm-annotations', version:'1.1.0'
     annotationProcessor 'com.formkiq:graalvm-annotations-processor:1.1.1'
 }
+
+javapackager{
+    mainClass = 'com.dimotim.ovpn.Application'
+    bundleJre = true
+    customizedJre = false
+    generateInstaller = false
+    administratorRequired = false
+}
+
+task packageWindows(name: 'windows-image', type: PackageTask, dependsOn: build) {
+    doFirst {
+        javapackager {
+            name 'windows-image'
+            platform = "windows"
+            createZipball = true
+            winConfig {
+                headerType = "console"
+            }
+        }
+    }
+}
+
+task packageLinux(name: 'linux-image', type: PackageTask, dependsOn: build) {
+    doFirst {
+        javapackager {
+            name 'linux-image'
+            platform = "linux"
+            createZipball = true
+        }
+    }
+}
+
+task packageApp(dependsOn: [ 'packageLinux', 'packageWindows' ])
