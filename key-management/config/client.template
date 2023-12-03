@@ -13,5 +13,7 @@ persist-key
 persist-tun
 verb 3
 mute 20
+ping 10
+ping-exit 30
 
 
